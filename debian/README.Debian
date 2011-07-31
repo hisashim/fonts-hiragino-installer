@@ -1,0 +1,23 @@
+OpenType Hiragino font installer
+--------------------------------
+
+Installs OpenType version of Hiragino fonts on Debian.
+
+Installation
+------------
+
+  Put font files in /var/tmp/hiragino:
+
+    $ sudo mkdir /var/tmp/hiragino
+    $ cp HiraMinStdN-W3.otf /var/tmp/hiragino/HiraMinStdN-W3.otf
+    ...
+
+  Then install the package.
+
+    $ sudo dpkg -i otf-hiragino*.deb
+
+Uninstallation
+--------------
+
+    $ sudo apt-get remove otf-hiragino
+    $ ls -alR /var/tmp/hiragino/
