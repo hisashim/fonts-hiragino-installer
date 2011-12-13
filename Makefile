@@ -148,7 +148,9 @@ pbuilder-login:
 	sudo $(PBUILDER) --login $(PBOPTS)
 
 pbuilder-test: $(DEB)_all.deb
-	sudo $(PBUILDER) --execute $(PBOPTS) -- pbuilder-hooks/test.sh \
+	sudo $(PBUILDER) --execute --hookdir=pbuilder-hooks \
+	  --bindmounts "/var/cache/pbuilder/result /var/tmp/hiragino" \
+	  -- pbuilder-hooks/test.sh \
 	$(PACKAGE) $(VERSION) $(DEBREV)
 
 $(DEB).dsc: $(RELEASE) $(DEBORIG)
