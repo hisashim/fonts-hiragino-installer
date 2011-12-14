@@ -1,11 +1,11 @@
-Source: otf-hiragino
+Source: otf-hiragino-installer
 Section: contrib/fonts
 Priority: extra
 Maintainer: Hisashi MORITA <hisashim@workbook.org>
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.8.3
 
-Package: otf-hiragino
+Package: otf-hiragino-installer
 Architecture: all
-Description: OpenType Hiragino font installer
- Installs OpenType version of Hiragino fonts on Debian.
+Description: Installer package for Hiragino font (OpenType)
+ Installs OpenType version of Hiragino fonts.

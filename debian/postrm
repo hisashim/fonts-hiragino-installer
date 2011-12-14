@@ -1,5 +1,5 @@
 #!/bin/sh
-# postrm script for otf-hiragino
+# postrm script for otf-hiragino-installer
 #
 # see: dh_installdeb(1)
 

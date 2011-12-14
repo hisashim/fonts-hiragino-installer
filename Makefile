@@ -5,8 +5,10 @@
 # metadata
 
 PRODUCT = hiragino
-VERSION = 0.0.1
-PACKAGE = otf-hiragino
+PACKAGE = $(shell head -n 1 debian/changelog \
+                  | cut -d' ' -f 1)
+VERSION = $(shell head -n 1 debian/changelog \
+                  | cut -d' ' -f 2 | sed 's/(\(.*\)-\(.*\))/\1/')
 DEBREV  = $(shell head -n 1 debian/changelog \
                   | cut -d' ' -f 2 | sed 's/(\(.*\)-\(.*\))/\2/')
 
@@ -165,7 +167,7 @@ $(DEBORIG): $(RELEASE).tar.gz
 mostlyclean:	
 	rm -fr $(RELEASE)
 	rm -f $(DEB)_*.build $(DEB)_*.changes
-	rm -fr debian/$(PRODUCT)
+	rm -fr debian/$(PACKAGE)
 
 clean: mostlyclean
 	rm -f $(RELEASE).tar.gz

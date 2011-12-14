@@ -1,7 +1,7 @@
-OpenType Hiragino font installer
---------------------------------
+Installer package for Hiragino font (OpenType)
+----------------------------------------------
 
-Installs OpenType version of Hiragino fonts on Debian.
+Installs OpenType version of Hiragino fonts.
 
 Installation
 ------------
@@ -14,10 +14,10 @@ Installation
 
   Then install the package.
 
-    $ sudo dpkg -i otf-hiragino*.deb
+    $ sudo dpkg -i otf-hiragino-installer*.deb
 
 Uninstallation
 --------------
 
-    $ sudo apt-get remove otf-hiragino
+    $ sudo apt-get remove otf-hiragino-installer
     $ ls -alR /var/tmp/hiragino/
