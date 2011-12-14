@@ -3,9 +3,10 @@ Section: contrib/fonts
 Priority: extra
 Maintainer: Hisashi MORITA <hisashim@workbook.org>
 Build-Depends: debhelper (>= 5)
-Standards-Version: 3.8.3
+Standards-Version: 3.9.1
 
 Package: otf-hiragino-installer
 Architecture: all
+Depends: ${misc:Depends}
 Description: Installer package for Hiragino font (OpenType)
  Installs OpenType version of Hiragino fonts.
