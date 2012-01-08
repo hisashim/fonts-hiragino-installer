@@ -70,6 +70,7 @@ install: checkprep
 	  mkdir -p $(FONTSDIR)/opentype/hiragino; \
 	fi
 	cp $(addprefix $(SRCDIR)/,$(available)) $(FONTSDIR)/opentype/hiragino/
+	chmod 644 $(FONTSDIR)/opentype/hiragino/*
 	@for d in $(TEXMF)/fonts $(TEXMF_TL)/fonts; do \
 	  echo Looking for directory $$d; \
 	  if [ -d $$d ]; then \

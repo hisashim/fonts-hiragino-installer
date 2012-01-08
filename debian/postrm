@@ -28,7 +28,7 @@ UNINSTDIR=${SRCDIR}/uninstalled.`date -u +%Y%m%d%H%M%S`.$$
 case "$1" in
     purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
         if [ -d ${FONTSDIR}/opentype/hiragino ] && \
-           [ -e ${FONTSDIR}/opentype/hiragino/* ]; then
+           for f in ${FONTSDIR}/opentype/hiragino/*; do [ -e $f ]; done; then
           echo "Installed font files found, moving to ${UNINSTDIR}"
           mkdir -p ${UNINSTDIR}
           mv ${FONTSDIR}/opentype/hiragino/* ${UNINSTDIR}
