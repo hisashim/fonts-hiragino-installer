@@ -46,20 +46,20 @@ unavailable= $(foreach f,\
                        $(hiraall),\
                        $(shell if [ ! -f $(SRCDIR)/$(f) ]; then echo $(f); fi))
 
-DIST    = Makefile
+DIST    = Makefile ChangeLog
 
 RELEASE = $(PRODUCT)-$(VERSION)
 
 DEB     = $(PACKAGE)_$(VERSION)-$(DEBREV)
-DEBORIG = $(PACKAGE)_$(VERSION).orig.tar.gz
+DEBORIG = $(PACKAGE)_$(VERSION).orig
 
 ## targets
 
-all:
+all: $(DIST)
 
 .PHONY: all install uninstall checkprep \
 	deb pbuilder-build pbuilder-login pbuilder-test \
-	mostlyclean clean distclean
+	mostlyclean clean maintainer-clean
 .SECONDARY:
 
 # installation
@@ -134,15 +134,19 @@ $(RELEASE): $(DIST)
 	mkdir -p $@
 	($(TAR_XVCS) -cf - $(DIST)) | (cd $@ && tar xpf -)
 
+ChangeLog:
+	devutils/vcslog.sh > $@
+
 %.tar.gz: %
 	tar cfz $@ $<
 
 # debian package
 
-deb: $(DEB)_all.deb
-
-$(DEB)_all.deb: pbuilder-build
-	cp /var/cache/pbuilder/result/$@ ./
+deb: pbuilder-build
+	cp /var/cache/pbuilder/result/$(DEB).diff.gz ./
+	cp /var/cache/pbuilder/result/$(DEB).dsc ./
+	cp /var/cache/pbuilder/result/$(DEB)_all.deb ./
+	cp /var/cache/pbuilder/result/$(DEBORIG).tar.gz ./
 
 pbuilder-build: $(DEB).dsc
 	sudo $(PBUILDER) --build $< -- $(PBOPTS)
@@ -156,22 +160,26 @@ pbuilder-test: $(DEB)_all.deb
 	  -- pbuilder-hooks/test.sh \
 	$(PACKAGE) $(VERSION) $(DEBREV)
 
-$(DEB).dsc: $(RELEASE) $(DEBORIG)
+$(DEB).dsc: $(RELEASE) $(DEBORIG).tar.gz
 	($(TAR_XVCS) -cf - debian) | (cd $(RELEASE) && tar xpf -)
 	(cd $(RELEASE) && debuild $(DEBUILDOPTS); cd -)
 
-$(DEBORIG): $(RELEASE).tar.gz
-	cp $< $@
+$(DEBORIG).tar.gz: $(RELEASE).tar.gz
+	cp -a $< $@
+
+debuild-clean:
+	rm -fr $(DEBORIG)
+	rm -f $(DEB)_*.build $(DEB)_*.changes
+	rm -fr debian/$(PRODUCT)
+	rm -f $(DEB).dsc $(DEBORIG).tar.gz $(DEB).diff.gz $(DEB)_*.deb
 
 # utilities
 
 mostlyclean:	
 	rm -fr $(RELEASE)
-	rm -f $(DEB)_*.build $(DEB)_*.changes
-	rm -fr debian/$(PACKAGE)
 
 clean: mostlyclean
 	rm -f $(RELEASE).tar.gz
-	rm -f $(DEB).dsc $(DEBORIG) $(DEB).diff.gz $(DEB)_*.deb
 
-distclean: clean
+maintainer-clean: clean debuild-clean
+	rm -f ChangeLog
