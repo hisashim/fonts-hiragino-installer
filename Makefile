@@ -5,11 +5,11 @@
 # metadata
 
 PRODUCT = hiragino
-PACKAGE = $(shell head -n 1 debian/changelog \
-                  | cut -d' ' -f 1)
-VERSION = $(shell head -n 1 debian/changelog \
-                  | cut -d' ' -f 2 | sed 's/(\(.*\)-\(.*\))/\1/')
-DEBREV  = $(shell head -n 1 debian/changelog \
+VERSION = $(shell cat VERSION)
+PACKAGE = $(shell [ -f debian/changelog ] && \
+                  head -n 1 debian/changelog | cut -d' ' -f 1)
+DEBREV  = $(shell [ -f debian/changelog ] && \
+                  head -n 1 debian/changelog \
                   | cut -d' ' -f 2 | sed 's/(\(.*\)-\(.*\))/\2/')
 
 # programs
@@ -46,7 +46,7 @@ unavailable= $(foreach f,\
                        $(hiraall),\
                        $(shell if [ ! -f $(SRCDIR)/$(f) ]; then echo $(f); fi))
 
-DIST    = Makefile ChangeLog
+DIST    = Makefile VERSION ChangeLog
 
 RELEASE = $(PRODUCT)-$(VERSION)
 
