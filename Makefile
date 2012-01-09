@@ -53,7 +53,7 @@ DEBORIG = $(PACKAGE)_$(VERSION).orig
 all: $(DIST) checkprep
 
 .PHONY: all checkprep \
-	deb pbuilder-build pbuilder-login pbuilder-test debuild-clean \
+	deb pbuilder-build pbuilder-login pbuilder-test debuild debuild-clean \
 	mostlyclean clean maintainer-clean
 .SECONDARY:
 
@@ -108,7 +108,9 @@ pbuilder-test: $(DEB)_all.deb
 	  -- pbuilder-hooks/test.sh \
 	$(PACKAGE) $(VERSION) $(DEBREV)
 
-$(DEB).dsc: $(RELEASE) $(DEBORIG).tar.gz
+$(DEB).dsc: debuild
+
+debuild: $(RELEASE) $(DEBORIG).tar.gz
 	($(TAR_XVCS) -cf - debian) | (cd $(RELEASE) && tar xpf -)
 	(cd $(RELEASE) && debuild $(DEBUILDOPTS); cd -)
 
