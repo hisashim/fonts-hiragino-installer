@@ -3,6 +3,9 @@ Installer package for Hiragino font (OpenType)
 
 Installs OpenType version of Hiragino fonts.
 
+If TEXMFMAIN (/usr/share/texmf) exists, it also creates symlinks so
+that the fonts are accessible from TeX.
+
 Installation
 ------------
 
