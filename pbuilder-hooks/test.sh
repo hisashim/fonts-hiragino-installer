@@ -22,7 +22,7 @@ apt-get install -f --yes
 echo "### dpkg -l | grep '^ii'"
 dpkg -l | grep '^ii'
 echo "### texlive-base (so that symlinks are created)"
-apt-get install --yes texlive-base
+apt-get install --no-install-recommends --yes texlive-base
 echo "### Files created:"
 ls -alR /usr/share/fonts/opentype
 ls -alR /usr/share/texmf
