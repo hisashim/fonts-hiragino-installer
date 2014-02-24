@@ -9,7 +9,7 @@ Installation
   Put font files in /var/tmp/hiragino:
 
     $ sudo mkdir /var/tmp/hiragino
-    $ cp HiraMinStdN-W3.otf /var/tmp/hiragino/HiraMinStdN-W3.otf
+    $ cp HiraMinStdN-W3.otf /var/tmp/hiragino/
     ...
 
   Then install the package.
@@ -20,4 +20,3 @@ Uninstallation
 --------------
 
     $ sudo apt-get remove otf-hiragino-installer
-    $ ls -alR /var/tmp/hiragino/

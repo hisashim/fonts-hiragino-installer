@@ -22,15 +22,10 @@ DESTDIR=${DESTDIR:-}
 FONTSDIR=${FONTSDIR:-${DESTDIR}/usr/share/fonts}
 TEXMF=${TEXMF:-${DESTDIR}/usr/share/texmf}
 SRCDIR=${SRCDIR:-/var/tmp/hiragino}
-UNINSTDIR=${SRCDIR}/uninstalled.`date -u +%Y%m%d%H%M%S`.$$
 
 case "$1" in
     purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
-        if [ -d ${FONTSDIR}/opentype/hiragino ] && \
-           for f in ${FONTSDIR}/opentype/hiragino/*; do [ -e $f ]; done; then
-          echo "Installed font files found, moving to ${UNINSTDIR}"
-          mkdir -p ${UNINSTDIR}
-          mv ${FONTSDIR}/opentype/hiragino/* ${UNINSTDIR}
+        if [ -d ${FONTSDIR}/opentype/hiragino ]; then
           echo "Deleting directory ${FONTSDIR}/opentype/hiragino"
           rm -fr ${FONTSDIR}/opentype/hiragino
         fi
