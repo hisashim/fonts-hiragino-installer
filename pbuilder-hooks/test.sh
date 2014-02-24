@@ -21,12 +21,11 @@ dpkg -i /var/cache/pbuilder/result/${DEBFILE_BASENAME}_all.deb
 apt-get install -f --yes
 echo "### dpkg -l | grep '^ii'"
 dpkg -l | grep '^ii'
-echo "### texlive-base"
+echo "### texlive-base (so that symlinks are created)"
 apt-get install --yes texlive-base
 echo "### Files created:"
 ls -alR /usr/share/fonts/opentype
 ls -alR /usr/share/texmf
-ls -alR /usr/share/texmf-texlive
 echo "### Testing uninstallation..."
 dpkg --remove ${PACKAGE}
 dpkg --install /var/cache/pbuilder/result/${DEBFILE_BASENAME}_all.deb

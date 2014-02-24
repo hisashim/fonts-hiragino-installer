@@ -21,7 +21,6 @@ set -e
 DESTDIR=${DESTDIR:-}
 FONTSDIR=${FONTSDIR:-${DESTDIR}/usr/share/fonts}
 TEXMF=${TEXMF:-${DESTDIR}/usr/share/texmf}
-TEXMF_TL=${TEXMF_TL:-${DESTDIR}/usr/share/texmf-texlive}
 SRCDIR=${SRCDIR:-/var/tmp/hiragino}
 UNINSTDIR=${SRCDIR}/uninstalled.`date -u +%Y%m%d%H%M%S`.$$
 
@@ -40,7 +39,7 @@ case "$1" in
           echo "Deleting empty directory ${FONTSDIR}/opentype"
           rmdir ${FONTSDIR}/opentype
         fi
-        for d in ${TEXMF}/fonts ${TEXMF_TL}/fonts; do
+        for d in ${TEXMF}/fonts; do
           if [ -h ${d}/opentype/hiragino ]; then
             echo "Deleting link ${d}/opentype/hiragino"
             rm -f ${d}/opentype/hiragino

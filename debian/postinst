@@ -20,7 +20,6 @@ set -e
 DESTDIR=${DESTDIR:-}
 FONTSDIR=${FONTSDIR:-${DESTDIR}/usr/share/fonts}
 TEXMF=${TEXMF:-${DESTDIR}/usr/share/texmf}
-TEXMF_TL=${TEXMF_TL:-${DESTDIR}/usr/share/texmf-texlive}
 SRCDIR=${SRCDIR:-/var/tmp/hiragino}
 
 hiraminstd=`for v in Std StdN; do for w in 2 3 4 5 6 7 8; do
@@ -63,7 +62,7 @@ case "$1" in
         cp `for f in ${found}; do echo ${SRCDIR}/${f}; done` \
              ${FONTSDIR}/opentype/hiragino/
 	chmod 644 ${FONTSDIR}/opentype/hiragino/*
-        for d in ${TEXMF}/fonts ${TEXMF_TL}/fonts; do
+        for d in ${TEXMF}/fonts; do
           echo "Looking for directory ${d}"
           if [ -d ${d} ]; then
             echo "${d} found"
