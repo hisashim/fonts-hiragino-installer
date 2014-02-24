@@ -17,8 +17,9 @@ DEBREV  = $(shell [ -f debian/changelog ] && \
 TAR_XVCS= tar --exclude=".svn" --exclude=".git" --exclude=".hg"
 DEBUILDOPTS=
 PBUILDER = cowbuilder
+PBRESULT = /var/cache/pbuilder/result
 PBOPTS   = --hookdir=pbuilder-hooks \
-           --bindmounts "/var/cache/pbuilder/result"
+           --bindmounts "$(PBRESULT) $(SRCDIR)"
 
 # files and directories
 
@@ -91,10 +92,10 @@ ChangeLog:
 # debian package
 
 deb: pbuilder-build
-	cp /var/cache/pbuilder/result/$(DEB).diff.gz ./
-	cp /var/cache/pbuilder/result/$(DEB).dsc ./
-	cp /var/cache/pbuilder/result/$(DEB)_all.deb ./
-	cp /var/cache/pbuilder/result/$(DEBORIG).tar.gz ./
+	cp $(PBRESULT)/$(DEB).diff.gz ./
+	cp $(PBRESULT)/$(DEB).dsc ./
+	cp $(PBRESULT)/$(DEB)_all.deb ./
+	cp $(PBRESULT)/$(DEBORIG).tar.gz ./
 
 pbuilder-build: $(DEB).dsc
 	sudo $(PBUILDER) --build $< -- $(PBOPTS)
@@ -103,10 +104,8 @@ pbuilder-login:
 	sudo $(PBUILDER) --login $(PBOPTS)
 
 pbuilder-test: $(DEB)_all.deb
-	sudo $(PBUILDER) --execute --hookdir=pbuilder-hooks \
-	  --bindmounts "/var/cache/pbuilder/result /var/tmp/hiragino" \
-	  -- pbuilder-hooks/test.sh \
-	$(PACKAGE) $(VERSION) $(DEBREV)
+	sudo $(PBUILDER) --execute $(PBOPTS) -- \
+	  pbuilder-hooks/test.sh $(PACKAGE) $(VERSION) $(DEBREV)
 
 $(DEB).dsc: debuild
 
