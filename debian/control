@@ -1,12 +1,21 @@
-Source: otf-hiragino-installer
+Source: fonts-hiragino-installer
 Section: contrib/fonts
 Priority: extra
 Maintainer: Hisashi MORITA <hisashim@workbook.org>
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.9.1
 
-Package: otf-hiragino-installer
+Package: fonts-hiragino-installer
 Architecture: all
 Depends: ${misc:Depends}
+Replaces: otf-hiragino-installer (<< 0.0.4)
+Breaks: otf-hiragino-installer (<< 0.0.4)
 Description: Installer package for Hiragino font (OpenType)
  Installs OpenType version of Hiragino fonts.
+
+Package: otf-hiragino-installer
+Architecture: all
+Section: oldlibs
+Depends: fonts-hiragino-installer, ${misc:Depends}
+Description: Transitional dummy package
+ This is a transitional dummy package. It can safely be removed.

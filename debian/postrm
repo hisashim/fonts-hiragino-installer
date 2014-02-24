@@ -1,5 +1,5 @@
 #!/bin/sh
-# postrm script for otf-hiragino-installer
+# postrm script for fonts-hiragino-installer
 #
 # see: dh_installdeb(1)
 

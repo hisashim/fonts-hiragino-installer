@@ -17,9 +17,9 @@ Installation
 
   Then install the package.
 
-    $ sudo dpkg -i otf-hiragino-installer*.deb
+    $ sudo dpkg -i fonts-hiragino-installer*.deb
 
 Uninstallation
 --------------
 
-    $ sudo apt-get remove otf-hiragino-installer
+    $ sudo apt-get remove fonts-hiragino-installer
