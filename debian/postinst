@@ -61,22 +61,22 @@ case "$1" in
         fi
         cp `for f in ${found}; do echo ${SRCDIR}/${f}; done` \
              ${FONTSDIR}/opentype/hiragino/
-	chmod 644 ${FONTSDIR}/opentype/hiragino/*
-        for d in ${TEXMF}/fonts; do
-          echo "Looking for directory ${d}"
-          if [ -d ${d} ]; then
-            echo "${d} found"
-            if [ ! -d ${d}/opentype ]; then
-              echo "Creating directory ${d}/opentype"
-              mkdir -p ${d}/opentype
-            fi
-            if [ ! -h ${d}/opentype/hiragino ]; then
-              echo -n "Creating symlink from ${d}/opentype/hiragino"
-              echo    " to ${FONTSDIR}/opentype/hiragino"
-              ln -s ${FONTSDIR}/opentype/hiragino ${d}/opentype/hiragino
-            fi
+        chmod 644 ${FONTSDIR}/opentype/hiragino/*
+        if [ -d ${TEXMF} ]; then
+          echo "${TEXMF} found"
+          if [ ! -d ${TEXMF}/fonts/opentype ]; then
+            echo "Creating directory ${TEXMF}/fonts/opentype"
+            mkdir -p ${TEXMF}/fonts/opentype
           fi
-        done
+          if [ ! -h ${TEXMF}/fonts/opentype/hiragino ]; then
+            echo -n "Creating symlink from ${TEXMF}/fonts/opentype/hiragino"
+            echo    " to ${FONTSDIR}/fonts/opentype/hiragino"
+            ln -s ${FONTSDIR}/fonts/opentype/hiragino \
+                  ${TEXMF}/fonts/opentype/hiragino
+          fi
+        else
+          echo "${TEXMF} not found"
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
