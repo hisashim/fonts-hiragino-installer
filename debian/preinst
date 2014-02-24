@@ -53,8 +53,8 @@ case "$1" in
           exit 1
         fi
         echo "Looking for fonts in ${SRCDIR}"
-        echo "Found: ${found}"
-        echo "Not found: ${notfound}"
+        echo "Found:\n${found}"
+        echo "Not found:\n${notfound}"
         if [ -z "${found}"  ]; then
           echo "Font not found"
           echo "Prepare font files in directory ${SRCDIR} and try again"
