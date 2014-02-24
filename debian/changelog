@@ -1,3 +1,9 @@
+otf-hiragino-installer (0.0.3-0+0hisashim1) unstable; urgency=low
+
+  * 0.0.3
+
+ -- Hisashi Morita <hisashim@workbook.org>  Mon, 24 Feb 2014 23:53:35 +0900
+
 otf-hiragino-installer (0.0.2-0+0hisashim1) unstable; urgency=low
 
   * 0.0.2
