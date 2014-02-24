@@ -16,13 +16,13 @@ echo "### /etc/apt/sources.list"
 diff -u /etc/apt/sources.list.bak /etc/apt/sources.list
 apt-get update
 apt-get update
+echo "### texlive-base (so that symlinks are created)"
+apt-get install --no-install-recommends --yes texlive-base
 echo "### Installing package and requirements..."
 dpkg -i /var/cache/pbuilder/result/${DEBFILE_BASENAME}_all.deb
 apt-get install -f --yes
 echo "### dpkg -l | grep '^ii'"
 dpkg -l | grep '^ii'
-echo "### texlive-base (so that symlinks are created)"
-apt-get install --no-install-recommends --yes texlive-base
 echo "### Files created:"
 ls -alR /usr/share/fonts/opentype
 ls -alR /usr/share/texmf
