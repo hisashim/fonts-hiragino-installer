@@ -22,30 +22,83 @@ FONTSDIR=${FONTSDIR:-${DESTDIR}/usr/share/fonts}
 TEXMF=${TEXMF:-${DESTDIR}/usr/share/texmf}
 SRCDIR=${SRCDIR:-/var/tmp/hiragino}
 
-hiraminstd=`for v in Std StdN; do for w in 2 3 4 5 6 7 8; do
-  echo HiraMin${v}-W${w}.otf;
+# universal
+hiraginoudserif=`for v in Std StdN; do for w in 4 6; do
+  echo HiraginoUDSerif${v}-W${w}.otf;
+done done`
+hiraginoudsans=`for v in Std StdN; do for w in 3 4 5 6; do
+  echo HiraginoUDSans${v}-W${w}.otf;
+done done`
+hiraginoudsansf=`for v in Std StdN; do for w in 3 4 5 6; do
+  echo HiraginoUDSansF${v}-W${w}.otf;
+done done`
+hiraginoudsansr=`for v in Std StdN; do for w in 3 4 5 6; do
+  echo HiraginoUDSansR${v}-W${w}.otf;
+done done`
+# serif
+hiraginoserif=`for v in Pr6N Upr; do for w in 3 6; do
+  echo HiraginoSerif${v}-W${w}.otf;
 done done`
 hiraminpro=`for v in Pro ProN; do for w in 2 3 6; do
   echo HiraMin${v}-W${w}.otf;
 done done`
-hirakakustd=`for v in Std StdN; do for w in 1 2 3 4 5 6 7 8 9; do
-  echo HiraKaku${v}-W${w}.otf;
+hiraminstd=`for v in Std StdN; do for w in 2 3 4 5 6 7 8; do
+  echo HiraMin${v}-W${w}.otf;
+done done`
+# sans-serif
+hiraginosans=`for v in Pr6 Upr GB; do for w in 3 6; do
+  echo HiraginoSans${v}-W${w}.otf;
 done done`
 hirakakupro=`for v in Pro ProN; do for w in 3 6; do
   echo HiraKaku${v}-W${w}.otf;
 done done`
-hiramarustd=`for v in Std StdN; do for w in 2 4 6 8; do
-  echo HiraMaru${v}-W${w}.otf;
+hirakakustd=`for v in Std StdN; do for w in 1 2 3 4 5 6 7 8 9; do
+  echo HiraKaku${v}-W${w}.otf;
+done done`
+hirasansold=`for v in Std StdN; do for w in 6 7 8 9; do
+  echo HiraSansOld${v}-W${w}.otf;
+done done`
+# sans-serif rounded
+hiraginosansr=`for v in Pr6N Upr; do for w in 4; do
+  echo HiraginoSansR${v}-W${w}.otf;
 done done`
 hiramarupro=`for v in Pro ProN; do for w in 4; do
   echo HiraMaru${v}-W${w}.otf;
 done done`
+hiramarustd=`for v in Std StdN; do for w in 2 3 4 5 6 8; do
+  echo HiraMaru${v}-W${w}.otf;
+done done`
+# semi-cursive
 hiragyostd=`for v in Std StdN; do for w in 4 8; do
   echo HiraGyo${v}-W${w}.otf;
 done done`
-hiragyopro=
-hiraall="${hiraminstd} ${hiraminpro} ${hirakakustd} ${hirakakupro}
-         ${hiramarustd} ${hiramarupro} ${hiragyostd} ${hiragyopro}"
+# kana
+yutuki5gok=`for v in Std; do for w in 2 3 4 5 6 7 8; do
+  echo Yutuki5GoK${v}-W${w}.otf;
+done done`
+yutuki36pk=`for v in Std; do for w in 2 3 4 5 6 7 8; do
+  echo Yutuki36PK${v}-W${w}.otf;
+done done`
+hiraminhk=`for v in Std; do for w in 3 4 5 6; do
+  echo HiraMinHK${v}-W${w}.otf;
+done done`
+hirakakadk=`for v in Std; do for w in 1 2 3 4 5 6 7 8 9; do
+  echo HiraKakADK${v}-W${w}.otf;
+done done`
+hirakakupk=`for v in Std; do for w in 2 3 4 5 6; do
+  echo HiraKakuPK${v}-W${w}.otf;
+done done`
+hiraminrub=`for v in Std; do for w in 3; do
+  echo HiraMinRub${v}-W${w}.otf;
+done done`
+
+hiraall="${hiraginoudserif} ${hiraginoudsans} ${hiraginoudsansf} ${hiraginoudsansr}
+         ${hiraginoserif} ${hiraminpro} ${hiraminstd}
+         ${hiraginosans} ${hirakakupro} ${hirakakustd} ${hirasansold}
+         ${hiraginosansr} ${hiramarupro} ${hiramarustd}
+         ${hiragyostd}
+         ${yutuki5gok} ${yutuki36pk}
+         ${hiraminhk} ${hirakakadk} ${hirakakupk} ${hiraminrub}"
 found=`for f in ${hiraall}; do
   if [ -f ${SRCDIR}/${f} ]; then echo "${f}"; fi;
 done`
@@ -59,9 +112,11 @@ case "$1" in
           echo "Creating directory ${FONTSDIR}/opentype/hiragino"
           mkdir -p ${FONTSDIR}/opentype/hiragino
         fi
-        cp `for f in ${found}; do echo ${SRCDIR}/${f}; done` \
+        if [ -n ${found} ]; then
+          cp `for f in ${found}; do echo ${SRCDIR}/${f}; done` \
              ${FONTSDIR}/opentype/hiragino/
-        chmod 644 ${FONTSDIR}/opentype/hiragino/*
+          chmod 644 ${FONTSDIR}/opentype/hiragino/*
+        fi
         if [ -d ${TEXMF} ]; then
           echo "${TEXMF} found"
           if [ ! -d ${TEXMF}/fonts/opentype ]; then
@@ -71,8 +126,8 @@ case "$1" in
           if [ ! -h ${TEXMF}/fonts/opentype/hiragino ]; then
             echo -n "Creating symlink from ${TEXMF}/fonts/opentype/hiragino"
             echo    " to ${FONTSDIR}/fonts/opentype/hiragino"
-            ln -s ${FONTSDIR}/fonts/opentype/hiragino \
-                  ${TEXMF}/fonts/opentype/hiragino
+            (cd ${TEXMF}/fonts/opentype/; \
+             ln -s ../../../fonts/opentype/hiragino hiragino)
           fi
         else
           echo "${TEXMF} not found"

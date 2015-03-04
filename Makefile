@@ -25,22 +25,40 @@ PBOPTS   = --hookdir=pbuilder-hooks \
 
 SRCDIR  = /var/tmp/hiragino
 
-hiraminstd = $(foreach v,Std StdN,$(foreach w,2 3 4 5 6 7 8,HiraMin$(v)-W$(w).otf))
-hiraminpro = $(foreach v,Pro ProN,$(foreach w,2 3 6,HiraMin$(v)-W$(w).otf))
-hirakakustd= $(foreach v,Std StdN,$(foreach w,1 2 3 4 5 6 7 8 9,HiraKaku$(v)-W$(w).otf))
-hirakakupro= $(foreach v,Pro ProN,$(foreach w,3 6,HiraKaku$(v)-W$(w).otf))
-hiramarustd= $(foreach v,Std StdN,$(foreach w,2 4 6 8,HiraMaru$(v)-W$(w).otf))
-hiramarupro= $(foreach v,Pro ProN,$(foreach w,4,HiraMaru$(v)-W$(w).otf))
-hiragyostd = $(foreach v,Std StdN,$(foreach w,4 8,HiraGyo$(v)-W$(w).otf))
-hiragyopro =
-hiraall    = $(hiraminstd) $(hiraminpro) $(hirakakustd) $(hirakakupro) \
-             $(hiramarustd) $(hiramarupro) $(hiragyostd) $(hiragyopro)
-available  = $(foreach f,\
-                       $(hiraall),\
-                       $(shell if [ -f $(SRCDIR)/$(f) ]; then echo $(f); fi))
-unavailable= $(foreach f,\
-                       $(hiraall),\
-                       $(shell if [ ! -f $(SRCDIR)/$(f) ]; then echo $(f); fi))
+hiraginoudserif = $(foreach v,Std StdN,$(foreach w,4 6,HiraginoUDSerif$(v)-W$(w).otf))
+hiraginoudsans  = $(foreach v,Std StdN,$(foreach w,3 4 5 6,HiraginoUDSans$(v)-W$(w).otf))
+hiraginoudsansf = $(foreach v,Std StdN,$(foreach w,3 4 5 6,HiraginoUDSansF$(v)-W$(w).otf))
+hiraginoudsansr = $(foreach v,Std StdN,$(foreach w,3 4 5 6,HiraginoUDSansR$(v)-W$(w).otf))
+hiraginoserif   = $(foreach v,Pr6N Upr,$(foreach w,3 6,HiraginoSerif$(v)-W$(w).otf))
+hiraminpro      = $(foreach v,Pro ProN,$(foreach w,2 3 6,HiraMin$(v)-W$(w).otf))
+hiraminstd      = $(foreach v,Std StdN,$(foreach w,2 3 4 5 6 7 8,HiraMin$(v)-W$(w).otf))
+hiraginosans    = $(foreach v,Pr6N Upr GB,$(foreach w,3 6,HiraginoSans$(v)-W$(w).otf))
+hirakakupro     = $(foreach v,Pro ProN,$(foreach w,3 6,HiraKaku$(v)-W$(w).otf))
+hirakakustd     = $(foreach v,Std StdN,$(foreach w,1 2 3 4 5 6 7 8 9,HiraKaku$(v)-W$(w).otf))
+hirasansold     = $(foreach v,Std StdN,$(foreach w,6 7 8 9,HiraSansOld$(v)-W$(w).otf))
+hiraginosansr   = $(foreach v,Pr6N Upr,$(foreach w,4,HiraginoSansR$(v)-W$(w).otf))
+hiramarupro     = $(foreach v,Pro ProN,$(foreach w,4,HiraMaru$(v)-W$(w).otf))
+hiramarustd     = $(foreach v,Std StdN,$(foreach w,2 4 6 8,HiraMaru$(v)-W$(w).otf))
+hiragyostd      = $(foreach v,Std StdN,$(foreach w,4 8,HiraGyo$(v)-W$(w).otf))
+yutuki5gok      = $(foreach v,Std,$(foreach w,2 3 4 5 6 7 8,Yutuki5GoK$(v)-W$(w).otf))
+yutuki36pk      = $(foreach v,Std,$(foreach w,2 3 4 5 6 7 8,Yutuki36PK$(v)-W$(w).otf))
+hiraminhk       = $(foreach v,Std,$(foreach w,3 4 5 6,HiraMinHK$(v)-W$(w).otf))
+hirakakadk      = $(foreach v,Std,$(foreach w,1 2 3 4 5 6 7 8 9,HiraKakADK$(v)-W$(w).otf))
+hirakakupk      = $(foreach v,Std,$(foreach w,2 3 4 5 6,HiraKakuPK$(v)-W$(w).otf))
+hiraminrub      = $(foreach v,Std,$(foreach w,3,HiraMinRub$(v)-W$(w).otf))
+hiraall = $(hiraginoudserif) $(hiraginoudsans) $(hiraginoudsansf) $(hiraginoudsansr) \
+          $(hiraginoserif) $(hiraminpro) $(hiraminstd) \
+          $(hiraginosans) $(hirakakupro) $(hirakakustd) $(hirasansold) \
+          $(hiraginosansr) $(hiramarupro) $(hiramarustd) \
+          $(hiragyostd) \
+          $(yutuki5gok) $(yutuki36pk) \
+          $(hiraminhk) $(hirakakadk) $(hirakakupk) $(hiraminrub)
+found   = $(foreach f,\
+                    $(hiraall),\
+                    $(shell if [ -f $(SRCDIR)/$(f) ]; then echo $(f); fi))
+notfound= $(foreach f,\
+                    $(hiraall),\
+                    $(shell if [ ! -f $(SRCDIR)/$(f) ]; then echo $(f); fi))
 
 DIST    = Makefile VERSION ChangeLog
 
@@ -68,10 +86,10 @@ checkprep:
 	  exit 1; \
 	fi
 	@echo Looking for fonts in $(SRCDIR):
-	@echo Available: $(available)
-	@echo Unavailable: $(unavailable)
-	@if [ -z "$(strip $(available))"  ]; then \
-	  echo No font available; \
+	@echo Found: $(found)
+	@echo Not found: $(notfound)
+	@if [ -z "$(strip $(found))" ]; then \
+	  echo No font found; \
 	  exit 1; \
 	fi
 
