@@ -34,11 +34,11 @@ hiraminpro      = $(foreach v,Pro ProN,$(foreach w,2 3 6,HiraMin$(v)-W$(w).otf))
 hiraminstd      = $(foreach v,Std StdN,$(foreach w,2 3 4 5 6 7 8,HiraMin$(v)-W$(w).otf))
 hiraginosans    = $(foreach v,Pr6N Upr GB,$(foreach w,3 6,HiraginoSans$(v)-W$(w).otf))
 hirakakupro     = $(foreach v,Pro ProN,$(foreach w,3 6,HiraKaku$(v)-W$(w).otf))
-hirakakustd     = $(foreach v,Std StdN,$(foreach w,1 2 3 4 5 6 7 8 9,HiraKaku$(v)-W$(w).otf))
+hirakakustd     = $(foreach v,Std StdN,$(foreach w,0 1 2 3 4 5 6 7 8 9,HiraKaku$(v)-W$(w).otf))
 hirasansold     = $(foreach v,Std StdN,$(foreach w,6 7 8 9,HiraSansOld$(v)-W$(w).otf))
 hiraginosansr   = $(foreach v,Pr6N Upr,$(foreach w,4,HiraginoSansR$(v)-W$(w).otf))
 hiramarupro     = $(foreach v,Pro ProN,$(foreach w,4,HiraMaru$(v)-W$(w).otf))
-hiramarustd     = $(foreach v,Std StdN,$(foreach w,2 4 6 8,HiraMaru$(v)-W$(w).otf))
+hiramarustd     = $(foreach v,Std StdN,$(foreach w,2 3 4 5 6 8,HiraMaru$(v)-W$(w).otf))
 hiragyostd      = $(foreach v,Std StdN,$(foreach w,4 8,HiraGyo$(v)-W$(w).otf))
 yutuki5gok      = $(foreach v,Std,$(foreach w,2 3 4 5 6 7 8,Yutuki5GoK$(v)-W$(w).otf))
 yutuki36pk      = $(foreach v,Std,$(foreach w,2 3 4 5 6 7 8,Yutuki36PK$(v)-W$(w).otf))
@@ -46,13 +46,15 @@ hiraminhk       = $(foreach v,Std,$(foreach w,3 4 5 6,HiraMinHK$(v)-W$(w).otf))
 hirakakadk      = $(foreach v,Std,$(foreach w,1 2 3 4 5 6 7 8 9,HiraKakADK$(v)-W$(w).otf))
 hirakakupk      = $(foreach v,Std,$(foreach w,2 3 4 5 6,HiraKakuPK$(v)-W$(w).otf))
 hiraminrub      = $(foreach v,Std,$(foreach w,3,HiraMinRub$(v)-W$(w).otf))
+koburinago      = $(foreach v,Std StdN,$(foreach w,1 3 6,KoburinaGo$(v)-W$(w).otf))
 hiraall = $(hiraginoudserif) $(hiraginoudsans) $(hiraginoudsansf) $(hiraginoudsansr) \
           $(hiraginoserif) $(hiraminpro) $(hiraminstd) \
           $(hiraginosans) $(hirakakupro) $(hirakakustd) $(hirasansold) \
           $(hiraginosansr) $(hiramarupro) $(hiramarustd) \
           $(hiragyostd) \
           $(yutuki5gok) $(yutuki36pk) \
-          $(hiraminhk) $(hirakakadk) $(hirakakupk) $(hiraminrub)
+          $(hiraminhk) $(hirakakadk) $(hirakakupk) $(hiraminrub) \
+          $(koburinago)
 found   = $(foreach f,\
                     $(hiraall),\
                     $(shell if [ -f $(SRCDIR)/$(f) ]; then echo $(f); fi))
