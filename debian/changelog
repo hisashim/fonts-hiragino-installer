@@ -1,3 +1,9 @@
+fonts-hiragino-installer (0.0.5-0+0hisashim1) unstable; urgency=low
+
+  * 0.0.5
+
+ -- Hisashi Morita <hisashim@workbook.org>  Wed, 23 Aug 2017 01:44:30 +0900
+
 fonts-hiragino-installer (0.0.4-0+0hisashim1) unstable; urgency=low
 
   * 0.0.4
