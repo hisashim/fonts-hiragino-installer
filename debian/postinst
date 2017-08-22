@@ -112,7 +112,7 @@ case "$1" in
           echo "Creating directory ${FONTSDIR}/opentype/hiragino"
           mkdir -p ${FONTSDIR}/opentype/hiragino
         fi
-        if [ -n ${found} ]; then
+        if [ -n "${found}" ]; then
           cp `for f in ${found}; do echo ${SRCDIR}/${f}; done` \
              ${FONTSDIR}/opentype/hiragino/
           chmod 644 ${FONTSDIR}/opentype/hiragino/*
